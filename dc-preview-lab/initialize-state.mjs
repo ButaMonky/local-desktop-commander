@@ -1,0 +1,12 @@
+import { mkdir, writeFile, stat } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const allowed = process.argv[2];
+if (!allowed || !path.isAbsolute(allowed) || !(await stat(allowed)).isDirectory()) throw new Error('Pass an existing absolute folder path');
+const { configManager } = await import('./runtime-deps/node_modules/@wonderwhy-er/desktop-commander/dist/config-manager.js');
+const config = configManager.getDefaultConfig();
+Object.assign(config, {allowedDirectories:[allowed],telemetryEnabled:false,welcomeOnboardingEligible:false,pendingWelcomeOnboarding:false,abTest_McpUiPreviews:'showMCPUi'});
+const state = fileURLToPath(new URL('./full-state/', import.meta.url));
+await mkdir(state, {recursive:true});
+await writeFile(path.join(state,'config.json'), JSON.stringify(config,null,2), {flag:'wx'});
+console.log('Created private configuration. Existing Desktop Commander settings were not changed.');

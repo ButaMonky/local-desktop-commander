@@ -1,0 +1,12 @@
+**/node_modules/
+dc-preview-lab/candidate/
+dc-preview-lab/full-state/
+dc-preview-lab/*-run-*/
+local-tunnel/bin/
+local-tunnel/private/
+local-tunnel/profile.yaml
+local-tunnel/*.log
+local-tunnel/*.pid
+local-tunnel/*.url
+*.clixml
+*.zip

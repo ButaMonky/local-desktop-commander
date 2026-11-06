@@ -1,0 +1,16 @@
+{
+  "name": "local-desktop-commander-compact",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Windows integration and reproducible Compact patch for Desktop Commander MCP",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node dc-preview-lab/build.mjs",
+    "test": "node --test dc-preview-lab/preview.test.mjs dc-preview-lab/catalog.test.mjs dc-preview-lab/rpc.test.mjs",
+    "test:full": "node --test dc-preview-lab/full-startup.test.mjs"
+  },
+  "license": "MIT"
+}
