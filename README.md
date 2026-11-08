@@ -2,7 +2,7 @@
 
 **ChatGPTから、自分のWindows PCのファイル確認や開発作業を行うためのツールです。**
 
-[導入手順](docs/SETUP.ja.md) · [困ったとき](docs/TROUBLESHOOTING.ja.md) · [開発者向け](docs/DEVELOPMENT.ja.md) · [元プロジェクト・ライセンス](NOTICE.md)
+[導入手順](docs/SETUP.ja.md) · [キー更新](docs/SETUP.ja.md) · [困ったとき](docs/TROUBLESHOOTING.ja.md) · [開発者向け](docs/DEVELOPMENT.ja.md) · [元プロジェクト・ライセンス](NOTICE.md)
 
 > **初期公開版です。** 現在使っているCompact版のソースと、再現用のスクリプトを公開しています。導入には自分用のOpenAIトンネルの設定が必要です。ZIPを展開するだけで接続できる製品ではありません。配布者のPCやアカウントへ接続するものではありません。
 
