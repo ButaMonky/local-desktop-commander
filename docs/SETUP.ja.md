@@ -86,6 +86,22 @@ GitHubの「Code → Download ZIP」でダウンロードし、自分のユー�
 
 インストール先を動かした場合は、タスクのパスとトンネル設定の見直しが必要です。動作確認の済んだフォルダーを維持してください。
 
+## 9. 実行キーの更新（失効・ローテーション）
+
+Save-TunnelKey.ps1 は初回登録専用で、既存のキーは上書きしません。既存のキーを安全に更新する場合は、[OpenAI Platform](https://platform.openai.com/settings/organization/api-keys)で新しい秘密キーを発行してください。正しい組織・プロジェクトを選び、Restricted の Tunnels: Read と Use のみを付与します。
+
+最初にセットアップした**同じWindowsユーザー**の通常PowerShellで、インストール先から以下を実行します。
+
+~~~powershell
+.\Update-TunnelKey.ps1
+~~~
+
+表示された非表示入力に、発行された**秘密キー全文**を貼り付けます。Tracking IDや既存の暗号化ファイルをチャットに送る必要はありません。新しいキーはWindows DPAPIで暗号化され、検証後に暗号化済み旧キーのバックアップを作りながら置換されます。短すぎるキー、旧キーの欠落・破損時は旧ファイルを変更しません。
+
+**キー更新だけでは稼働中のトンネルは切り替わりません。** 手動起動なら Ctrl+C で Start-Compact.ps1 を停止して終了を確認し、再実行します。自動起動なら Windowsのタスク「Desktop Commander Local Compact - Public」だけを停止し、このインストールの tunnel-client.exe が終了したことを確認してから再起動してください。タスクの停止では子プロセスが残ることがあるため、パスと起動引数を確認します。他のCompactインストール、Remote版や無関係な開発プロセスを止めないでください。
+
+[401/429の詳しい診断](TROUBLESHOOTING.ja.md)に従ってローカルのポーリング状態とChatGPTのファイル読み取りを別々に確認します。復旧を確認するまでは、旧キーの暗号化バックアップを削除しないでください。
+
 ## 停止・削除する場合
 
 Windowsのタスクスケジューラで `Desktop Commander Local Compact - Public` を停止・無効化します。手動起動はCtrl+Cで停止します。その後ChatGPT側の本人用接続を解除します。不要になったトンネルと実行キーは公式設定画面で無効化してください。他のDesktop Commanderのタスクは変更しません。
