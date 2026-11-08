@@ -7,6 +7,8 @@
 - `dc-preview-lab/full-server.mjs`：現在の本番構成から抽出したMCP起動処理
 - `Start-Compact.ps1`：公開用の相対パスに整理したトンネル起動処理
 - `Save-TunnelKey.ps1`：本人用キーの暗号化保存
+- `Update-TunnelKey.ps1`：DPAPI暗号化バックアップを伴うキーのローテーション
+- `tests/Test-Update-TunnelKey.ps1`：実認証情報不要の異常系回帰テスト
 - `Install-Autostart.ps1`：本人のログオン時の起動登録
 - `dc-preview-lab/*test.mjs`：上流との比較テスト
 
@@ -25,6 +27,16 @@ npm.cmd test
 標準テストは、プレビュー広告の抑制、全ツール定義の比較、実際のstdio接続で日本語・絵文字を含むファイルの読み取り結果が上流と一致することを確認します。stdio比較テストのネットワーク遮断は検証用の仕組みであり、本番のセキュリティサンドボックスではありません。
 
 `npm.cmd run test:full` は追加検証です。既存の `~/.claude-server-commander/config.json` を読み、その設定をテスト専用フォルダーへ複製します。上流index.jsを起動するため、初回サービスなどの外部通信が発生し得ます。テスト専用ファイルの読み書き・編集・ターミナル実行と、既存設定への書き込みが起きないことを検証します。
+
+## 実行キー更新の回帰テスト
+
+Windows PowerShell 5.1で以下を実行します。実際のトンネル、実行中プロセス、設定済みキーは触りません。
+
+~~~powershell
+powershell.exe -NoProfile -File .\tests\Test-Update-TunnelKey.ps1
+~~~
+
+このテストは隔離された一時フォルダー内でダミーのSecureStringのみを使用し、暗号化保存・バックアップ・異常系での旧ファイル保護を検証します。公開版の別PC導入や自動起動を確認するE2Eテストとは区別します。
 
 ## 起動処理の注意点
 
